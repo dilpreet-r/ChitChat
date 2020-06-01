@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chit Chat</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link href="/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+      <div class="tomato">
+      <div class="naming">
+        <div class="form-group">
+          <input type="text" class="form-control name" id="handle" placeholder="Your Name" autocomplete="off" required>
+          <button type="button" class="btn click"  id="click" name="button" >Enter</button>
+        </div>
+      </div>
+    </div>
+    <div class="blue">
+      <div id="main-div" class="container-fluid">
+          <img class="icon" src="icon-chat.png" alt="logo"><h1> CHIT CHAT</h1>  <img src="/icon-button.png" alt="add" class="add" id="add"></h1>
+
+          <div id="chat-window" class="row">
+              <div id="output"></div>
+              <div id="feedback"></div>
+          </div>
+          <div class="row">
+
+
+          <input id="message" class="input" type="text" placeholder="Message" />
+          <button id="send" class="button">Send</button>
+          </div>
+      </div>
+    </div>
+      <div class="lime">
+        <div class="naming-0">
+          <div class="form-group">
+            <input type="text" class="form-control name-0" id="room" placeholder="Room Name" autocomplete="off" required>
+            <button type="button" class="btn click-0"  id="create" name="button" >Create</button>
+          </div>
+          <ul id="list">
+
+          </ul>
+        </div>
+
+      </div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/chat.js"></script>
+    </body>
+
+</html>
