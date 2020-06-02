@@ -18,6 +18,7 @@ h2{
 }
 
 #chat-window{
+    padding-top: 35px;
     text-align: left;
     height: 85%;
     overflow: auto;
@@ -437,4 +438,7 @@ li{
   background-color: white !important;
   opacity: 1;
   cursor:pointer;
+}
+#header{
+  padding-left: 20px;
 }

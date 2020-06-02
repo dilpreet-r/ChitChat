@@ -73,9 +73,11 @@ function buttonclick(){
 
 var roomclicked=function(obj){
   header.innerHTML=" "+obj.innerHTML;
+
   $(".lime").fadeOut();
   $(".blue").fadeIn();
-  socket.emit('create',obj.innerHTML);
+  output.innerHTML="";
+  socket.emit('create',{room:obj.innerHTML});
 }
 
 message.addEventListener('keypress', function(){
@@ -97,9 +99,9 @@ button2.addEventListener('click',function(){
 
 
 // Listen for events
-socket.on('chat', function(data){
+socket.on('chat', function(username,data){
     feedback.innerHTML = '';
-    var code='<div class="line"><div class="sender">'+ data.handle +'</div><div class="msg">'+ data.message +'</div><p>'+ data.date +'</p></div>';
+    var code='<div class="line"><div class="sender">'+ username +'</div><div class="msg">'+ data.message +'</div><p>'+ data.date +'</p></div>';
     output.innerHTML += code;
 });
 socket.on('typing', function(data){
@@ -107,7 +109,7 @@ socket.on('typing', function(data){
 });
 
 socket.on('entered', function(data){
-      feedback.innerHTML = '<p><em>' + data + ' has joined... </em></p>';
+      feedback.innerHTML = '<p><em>' + data + '</em></p>';
 });
 
 socket.on('roomCreate',function(data){
