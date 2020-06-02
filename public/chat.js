@@ -64,7 +64,8 @@ function buttonclick(){
       socket.emit('chat', {
         message: message.value,
         handle: handle.value,
-        date:date
+        date:date,
+        room:header.innerHTML
       });
       message.value = "";
       btn.disabled=true;
@@ -78,12 +79,12 @@ var roomclicked=function(obj){
 }
 
 message.addEventListener('keypress', function(){
-    socket.emit('typing', handle.value);
+    socket.emit('typing', {handle:handle.value,room:header.innerHTML});
 })
 button1.addEventListener('click', function(){
         $(".tomato").fadeOut();
         $(".blue").fadeIn();
-        socket.emit('entered', handle.value);
+        socket.emit('entered', {handle:handle.value,room:header.innerHTML});
 })
 
 
@@ -93,7 +94,6 @@ button2.addEventListener('click',function(){
   $(".lime").fadeIn();
   socket.emit('rooming');
 })
-
 
 
 // Listen for events
