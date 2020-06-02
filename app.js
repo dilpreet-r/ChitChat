@@ -18,20 +18,21 @@ var io = socket(server);
 io.on('connection', (socket) => {
 
     console.log('made socket connection', socket.id);
-    socket.join(room);
+    socket.join(roomList[0]);
     // Handle chat event
-    // socket.on('create', function(data) {
-    //     room=data;
-    //     socket.join(room);
-    // });
+    socket.on('create', function(room) {
+        socket.set('room',room,()=>{});
+        socket.join(room);
+
+    });
     socket.on('chat', function(data){
         // console.log(data);
-        io.sockets.to(room).emit('chat', data);
+        io.sockets.in(room).emit('chat', data);
     });
 
     // Handle typing event
     socket.on('typing', function(data){
-        socket.broadcast.to(room).emit('typing', data);
+        socket.broadcast.in(room).emit('typing', data);
     });
 
     socket.on('disconnect',(user)=>{
@@ -39,10 +40,10 @@ io.on('connection', (socket) => {
     });
 
     socket.on('entered', function(data){
-        socket.broadcast.to(room).emit('entered', data);
+        socket.broadcast.in(room).emit('entered', data);
     });
     socket.on('rooming',function(){
-      io.sockets.to(room).emit('roomCreate',{rooms:roomList,msg:""});
+      io.sockets.in(room).emit('roomCreate',{rooms:roomList,msg:""});
     });
     socket.on('roomCreated',function(data){
       if(!(roomList.includes(data.roomName))){
@@ -50,6 +51,6 @@ io.on('connection', (socket) => {
       }else{
         msg="Room already EXISTS!";
       }
-      io.sockets.to(room).emit('roomCreate',{rooms:roomList,msg:msg});
+      io.sockets.in(room).emit('roomCreate',{rooms:roomList,msg:msg});
     });
 });

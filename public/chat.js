@@ -12,7 +12,9 @@ var message = document.getElementById('message'),
       iRoom = document.getElementById('room'),
       cRoom = document.getElementById('create'),
       list = document.getElementById('list'),
+      header=document.getElementById('header'),
       feedback = document.getElementById('feedback');
+
 
 // By default, submit button is disabled
 button1.disabled = true;
@@ -24,6 +26,7 @@ handle.onkeyup = () => {
   else{
       button1.disabled = true;}
 };
+
 // By default, submit button is disabled
 btn.disabled = true;
 
@@ -67,6 +70,13 @@ function buttonclick(){
       btn.disabled=true;
 }
 
+var roomclicked=function(obj){
+  header.innerHTML=" "+obj.innerHTML;
+  $(".lime").fadeOut();
+  $(".blue").fadeIn();
+  socket.emit('create',obj.innerHTML);
+}
+
 message.addEventListener('keypress', function(){
     socket.emit('typing', handle.value);
 })
@@ -74,22 +84,17 @@ button1.addEventListener('click', function(){
         $(".tomato").fadeOut();
         $(".blue").fadeIn();
         socket.emit('entered', handle.value);
-
-
 })
 
-// enterRoom.addEventListener('click',function(){
-//     h1.innerHTML=" "+iRoom.value;
-//     $(".lime").fadeOut();
-//     $(".blue").fadeIn();
-//     socket.emit('create',iRoom.value);
-// })
+
 
 button2.addEventListener('click',function(){
   $(".blue").fadeOut();
   $(".lime").fadeIn();
   socket.emit('rooming');
 })
+
+
 
 // Listen for events
 socket.on('chat', function(data){
@@ -112,7 +117,7 @@ socket.on('roomCreate',function(data){
   }
   list.innerHTML="";
   rooms.forEach((room)=>{
-    var code='<li> <button class="btn lbtn" >'+ room +'</button> </li>';
+    var code='<li> <button class="btn lbtn" onclick="roomclicked(this)">'+ room +'</button> </li>';
     list.innerHTML += code;
   })
 });
